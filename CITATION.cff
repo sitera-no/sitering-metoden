@@ -12,5 +12,5 @@ repository-code: "https://github.com/sitera-no/sitering-metoden"
 license: MIT
 identifiers:
   - type: doi
-    value: 10.5281/zenodo.22837123
-    description: "Dataset: GEO-barometer Norge (results), CC BY 4.0"
+    value: 10.5281/zenodo.22837122
+    description: "Dataset: GEO-barometer Norge (results), CC BY 4.0 — concept DOI, resolves to the latest version"
