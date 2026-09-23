@@ -3,13 +3,13 @@
 An open protocol for measuring how often a firm is cited by generative AI engines when a buyer asks for a supplier recommendation.
 
 Maintained by [Sitera](https://sitera.no), Oslo. Author: Emmanuel Philis (org.nr 937 705 794).
-Revision: 18.09.2026.
+Revision: 23.09.2026.
 
 ---
 
 ## In six lines
 
-Four engines — ChatGPT, Gemini, Claude, Perplexity. A frozen set of buyer questions, asked in a logged-out browser session. Two draws on separate days, minimum. One row per question × engine × draw, in a CSV. A firm enters the published ranking only if cited by two engines or in both draws; anything below that threshold is counted but not named. The result is a frequency — `X av N` — never a score.
+Five engines — ChatGPT, Gemini, Claude, Perplexity, Copilot — for every series opened from 19.09.2026; a series opened on four engines stays on four, and the two are not compared. A frozen set of buyer questions, asked in a logged-out browser session. Two draws on separate days, minimum. One row per question × engine × draw, in a CSV. A firm enters the published ranking only if cited by two engines or in both draws; anything below that threshold is counted but not named. The result is a frequency — `X av N` — never a score.
 
 ---
 
@@ -30,7 +30,7 @@ Two terms are used throughout:
 
 ### 1. Engines
 
-Four engines, every draw:
+Five engines for every series opened from 19.09.2026:
 
 | Engine | Model recorded per cell |
 |---|---|
@@ -38,6 +38,9 @@ Four engines, every draw:
 | Gemini | yes |
 | Claude | yes |
 | Perplexity | yes |
+| Copilot | yes |
+
+A new T1 is measured on all five engines. A T2 keeps the panel of its T1: a series opened on four engines before 19.09.2026 is continued on the same four.
 
 The model variant is recorded in its own column. A draw run on a different variant than the previous one is not comparable and its cells are voided, not adjusted.
 
@@ -57,7 +60,7 @@ A logged-in session returns results shaped by the operator's own history. It mea
 - A follow-up draw repeats the questions **word for word**.
 - Adding a question does not extend a series — it starts a new T1.
 
-Question phrasing decides the result more than any other variable. Supplier-form questions ("who can help us with X") return named firms. Problem-form and criteria-form questions ("we don't show up when…", "what should we look for when choosing…") return no firm at all, across all four engines.
+Question phrasing decides the result more than any other variable. Supplier-form questions ("who can help us with X") return named firms. Problem-form and criteria-form questions ("we don't show up when…", "what should we look for when choosing…") return no firm at all, across every engine measured.
 
 ### 4. Draws
 
@@ -67,7 +70,7 @@ Question phrasing decides the result more than any other variable. Supplier-form
 
 ### 5. Publication threshold
 
-A firm enters the published ranking only if it is cited **cross-engine** (named by at least two of the four engines) **or cross-draw** (named in both T1 and T2).
+A firm enters the published ranking only if it is cited **cross-engine** (named by at least two engines of the panel) **or cross-draw** (named in both T1 and T2).
 
 Cited once, by one engine, in one draw → aggregated anonymously. It is not named and not discarded: the citation counts toward the totals, the firm does not appear in the list.
 
@@ -149,7 +152,7 @@ The number of silent cells out of N is reported with the result. A panel with ma
 
 ## Known limits
 
-- Four engines is a choice, not a census. Microsoft Copilot reached 20% weekly use in Norway (Ipsos SoMe Tracker, Q2 2026) and is not in the panel. Adding an engine changes the denominator and breaks comparability with earlier draws in the same series.
+- Microsoft Copilot reached 20% weekly use in Norway (Ipsos SoMe Tracker, Q2 2026) and was added to the panel on 19.09.2026 for that reason. Adding an engine changes the denominator: four-engine and five-engine series have different N and are not compared with each other.
 - Proprietary indexes persist. A correction published on a site stayed in circulation for over six weeks in one measured case. A draw run shortly after a change measures the state before the change.
 - Two draws is a floor, not a guarantee of stability.
 
@@ -160,5 +163,3 @@ The number of silent cells out of N is reported with the result. A panel with ma
 MIT. Use it, fork it, run it on your own market. If you publish results produced with this protocol, cite it.
 
 Measurements produced with this protocol for the Norwegian B2B market are published at [sitera.no](https://sitera.no).
-# sitering-metoden
-An open protocol for measuring how often a firm is cited by generative AI engines (ChatGPT, Gemini, Claude, Perplexity) when a buyer asks for a supplier. Maintained by Sitera, Oslo.
