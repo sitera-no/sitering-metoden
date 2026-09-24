@@ -97,8 +97,10 @@ Every named firm is resolved against the Norwegian business register (Enhetsregi
 One row per question × engine × draw. Semicolon-delimited CSV, UTF-8.
 
 ```
-dato;tid;trekning;sektor;sporsmal;motor;modell;geo;alias_capte;entitet;orgnr;kategori;source;note
+dato;tid;trekning;sektor;sporsmal;motor;modell;geo;alias_capte;entitet;orgnr;kategori;kilde;note
 ```
+
+Matrices measured before 23.09.2026 follow the earlier schema: `dato;trekning;sektor;sporsmal;motor;modell;alias_capte;entitet;kategori;kilde;note` (no `tid`, `geo` or `orgnr`).
 
 | Field | Content |
 |---|---|
@@ -114,14 +116,14 @@ dato;tid;trekning;sektor;sporsmal;motor;modell;geo;alias_capte;entitet;orgnr;kat
 | `entitet` | The resolved registered entity |
 | `orgnr` | Registered org.nr, empty if unresolved |
 | `kategori` | Entity class — see below |
-| `source` | `sok` (the engine ran a web search) or `minne` (answered from memory) |
+| `kilde` | `sok` (the engine ran a web search) or `minne` (answered from memory) |
 | `note` | Free text — truncation, partial answer, A/B answer, entity resolution |
 
 `kategori` separates the panel from everything else that comes back in the same answer. The panel class is sector-specific (`byraa`, `bemanning`, …). Four further classes have held across every panel measured so far:
 
 - `programvare` — software and platforms
 - `internasjonal` — foreign entity, pending verification of a local office
-- `hors_panel` — outside the panel's stated scope
+- `hors_panel` — outside the panel's stated scope (historical code, kept as is for comparability across editions)
 - `ingen` — the cell returned no entity
 
 `alias_capte` and `entitet` are kept separate on purpose. Engines return trade names, misspellings, and merged former names. The alias is recorded raw; the resolution goes in `entitet`/`orgnr`.
