@@ -3,7 +3,7 @@
 An open protocol for measuring how often a firm is cited by generative AI engines when a buyer asks for a supplier recommendation.
 
 Maintained by [Sitera](https://sitera.no), Oslo. Author: Emmanuel Philis (org.nr 937 705 794).
-Revision: 23.09.2026 (previous: 19.09.2026).
+Revision: 24.09.2026 (previous: 23.09.2026).
 
 ---
 
@@ -97,8 +97,10 @@ Every named firm is resolved against the Norwegian business register (Enhetsregi
 One row per question × engine × draw. Semicolon-delimited CSV, UTF-8.
 
 ```
-dato;tid;trekning;sektor;sporsmal;motor;modell;geo;alias_capte;entitet;orgnr;kategori;source;note
+dato;tid;trekning;sektor;sporsmal;motor;modell;geo;alias_capte;entitet;orgnr;kategori;kilde;note
 ```
+
+Matrices measured before 23.09.2026 follow the earlier schema: `dato;trekning;sektor;sporsmal;motor;modell;alias_capte;entitet;kategori;kilde;note` (no `tid`, `geo` or `orgnr`).
 
 | Field | Content |
 |---|---|
@@ -114,17 +116,40 @@ dato;tid;trekning;sektor;sporsmal;motor;modell;geo;alias_capte;entitet;orgnr;kat
 | `entitet` | The resolved registered entity |
 | `orgnr` | Registered org.nr, empty if unresolved |
 | `kategori` | Entity class — see below |
-| `source` | `sok` (the engine ran a web search) or `minne` (answered from memory) |
+| `kilde` | `sok` (the engine ran a web search) or `minne` (answered from memory) |
 | `note` | Free text — truncation, partial answer, A/B answer, entity resolution |
 
 `kategori` separates the panel from everything else that comes back in the same answer. The panel class is sector-specific (`byraa`, `bemanning`, …). Four further classes have held across every panel measured so far:
 
 - `programvare` — software and platforms
 - `internasjonal` — foreign entity, pending verification of a local office
-- `hors_panel` — outside the panel's stated scope
+- `hors_panel` — outside the panel's stated scope (historical code, kept as is for comparability across editions)
 - `ingen` — the cell returned no entity
 
 `alias_capte` and `entitet` are kept separate on purpose. Engines return trade names, misspellings, and merged former names. The alias is recorded raw; the resolution goes in `entitet`/`orgnr`.
+
+---
+
+## Source file
+
+For every draw taken from 25.09.2026 onward, the sources each engine displays with its answer are recorded in a separate file, one row per displayed source.
+
+```
+dato;trekning;sektor;sporsmal;motor;rang;domene;url
+```
+
+| Field | Content |
+|---|---|
+| `dato`, `trekning`, `sektor`, `sporsmal`, `motor` | Same values as in the matrix; together they identify the cell |
+| `rang` | Order of appearance in the answer (1, 2, 3 …) |
+| `domene` | Registrable domain of the source (e.g. `proff.no`). Mandatory |
+| `url` | The URL as displayed. Optional |
+
+Every source the engine displays with its answer is recorded — citation pills, footnotes, link cards — whether or not it names an entity. Recording a source here does not make it a citation of any entity: coding rule 1 still applies. A cell answered from memory (`kilde` = `minne`) has no rows. A cell coded `INGEN` in the matrix can still have source rows: an answer may rely on sources without naming a firm.
+
+Sources are recorded in both draws. Classification of sources (directory, press, user-generated, company site) is done at analysis, never while measuring.
+
+The file is named `kilder-<sektor>-u<utgave>-<YYYY-MM-DD>.csv` and is released alongside the matrix.
 
 ---
 
@@ -183,6 +208,7 @@ An independent third draw run in the blind on a published panel, compared cell b
 
 ## Changelog
 
+- **24.09.2026** — Source file added (one row per displayed source, both draws, from 25.09.2026). Schema field documented as `source` corrected to `kilde`, the name used in the published matrices; earlier schema of pre-23.09.2026 matrices documented. `hors_panel` kept as a historical code.
 - **23.09.2026** — Panel to five engines for new series (Copilot protocol added); model of the day recorded per cell instead of voiding cells; "logged out" replaced by "no personalisation" with the per-engine standard; geography, time, `modell`, `geo`, `orgnr` added to the schema; published figure = most recent draw, zero-in-published-draw rule, stable cells, control cells, panel scope line, A/B and Gemini rules, reproducibility section.
 - **19.09.2026** — Copilot added to the panel for series opened from 19.09.2026 (commit 9814792).
 - **18.09.2026** — First public revision.
