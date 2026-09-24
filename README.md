@@ -3,7 +3,7 @@
 An open protocol for measuring how often a firm is cited by generative AI engines when a buyer asks for a supplier recommendation.
 
 Maintained by [Sitera](https://sitera.no), Oslo. Author: Emmanuel Philis (org.nr 937 705 794).
-Revision: 23.09.2026 (previous: 19.09.2026).
+Revision: 24.09.2026 (previous: 23.09.2026).
 
 ---
 
@@ -208,6 +208,7 @@ An independent third draw run in the blind on a published panel, compared cell b
 
 ## Changelog
 
+- **24.09.2026** — Source file added (one row per displayed source, both draws, from 25.09.2026). Schema field documented as `source` corrected to `kilde`, the name used in the published matrices; earlier schema of pre-23.09.2026 matrices documented. `hors_panel` kept as a historical code.
 - **23.09.2026** — Panel to five engines for new series (Copilot protocol added); model of the day recorded per cell instead of voiding cells; "logged out" replaced by "no personalisation" with the per-engine standard; geography, time, `modell`, `geo`, `orgnr` added to the schema; published figure = most recent draw, zero-in-published-draw rule, stable cells, control cells, panel scope line, A/B and Gemini rules, reproducibility section.
 - **19.09.2026** — Copilot added to the panel for series opened from 19.09.2026 (commit 9814792).
 - **18.09.2026** — First public revision.
