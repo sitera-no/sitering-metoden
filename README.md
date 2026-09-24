@@ -130,6 +130,29 @@ Matrices measured before 23.09.2026 follow the earlier schema: `dato;trekning;se
 
 ---
 
+## Source file
+
+For every draw taken from 25.09.2026 onward, the sources each engine displays with its answer are recorded in a separate file, one row per displayed source.
+
+```
+dato;trekning;sektor;sporsmal;motor;rang;domene;url
+```
+
+| Field | Content |
+|---|---|
+| `dato`, `trekning`, `sektor`, `sporsmal`, `motor` | Same values as in the matrix; together they identify the cell |
+| `rang` | Order of appearance in the answer (1, 2, 3 …) |
+| `domene` | Registrable domain of the source (e.g. `proff.no`). Mandatory |
+| `url` | The URL as displayed. Optional |
+
+Every source the engine displays with its answer is recorded — citation pills, footnotes, link cards — whether or not it names an entity. Recording a source here does not make it a citation of any entity: coding rule 1 still applies. A cell answered from memory (`kilde` = `minne`) has no rows. A cell coded `INGEN` in the matrix can still have source rows: an answer may rely on sources without naming a firm.
+
+Sources are recorded in both draws. Classification of sources (directory, press, user-generated, company site) is done at analysis, never while measuring.
+
+The file is named `kilder-<sektor>-u<utgave>-<YYYY-MM-DD>.csv` and is released alongside the matrix.
+
+---
+
 ## Coding rules
 
 Applied identically to every cell, every draw.
